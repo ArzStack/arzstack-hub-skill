@@ -53,6 +53,10 @@ quando você pede algo relacionado ao catálogo, por exemplo:
 - "quais MCP servers a minha org tem disponível?"
 - "me configura aqui o que tem no ArzStack pra esse projeto"
 
+> Por baixo, o agente usa o **modo interativo** do CLI (`npx @arzstack/hub install`
+> sem id, ou `browse`): lista os itens da sua org com contagem por tipo, navega
+> paginado, e instala em **projeto** ou **global** — sem você copiar id nem comando.
+
 Na primeira vez, o agente vai pedir pra você **logar**: crie um token em
 **Perfil → Tokens de CLI** no portal do Hub e rode `npx @arzstack/hub login`.
 
