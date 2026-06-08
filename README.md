@@ -1,40 +1,71 @@
-# ArzStack Hub — skill de onboarding do CLI
+# ArzStack Hub — Skill
 
-Skill (formato [Agent Skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills))
-que ensina um agente de IA (Claude Code, Codex, Gemini) a usar o CLI
-**`@arzstack/hub`** pra descobrir e instalar itens do catálogo da organização —
-skills, MCP servers, knowledge e automations — em nome do usuário.
+Ensina o seu agente de IA (Claude Code, Codex, Gemini, e afins) a **descobrir e
+instalar itens do catálogo do seu ArzStack Hub** — skills, MCP servers, knowledge
+e automations — usando o CLI `@arzstack/hub`, em vez de você ficar copiando
+comando da web.
 
-É a skill **padrão/global** do ArzStack Hub: distribuída pra todas as orgs, ela faz
-o agente já "saber" navegar e instalar o resto do catálogo.
+Com ela instalada, é só pedir em linguagem natural ("instala a skill de resumo do
+nosso hub", "quais MCPs a gente tem?", "me configura o catálogo da org") que o
+agente faz o login, navega o catálogo e instala o item certo pra você.
 
-## Estrutura
+É uma **Agent Skill** padrão (uma pasta com um `SKILL.md`) — instala igual a
+qualquer outra skill.
 
+---
+
+## Instalação
+
+### Opção A — pelo próprio Hub (recomendado)
+
+Se você já usa o `@arzstack/hub`, instale esta skill como qualquer item do
+catálogo (ela é global/padrão da plataforma):
+
+```bash
+npx @arzstack/hub install      # escolha "ArzStack Hub" na lista → global
 ```
-.
-├── SKILL.md      # a skill em si (frontmatter + instruções) — é o que o agente lê
-└── README.md     # este arquivo
+
+### Opção B — manual (clone na pasta de skills do seu agente)
+
+A skill é só esta pasta com o `SKILL.md`. Clone ela no diretório de skills do seu
+agente e reinicie/recarregue o agente:
+
+| Agente | Pasta de skills | Comando |
+|---|---|---|
+| **Claude Code** (global) | `~/.claude/skills/` | `git clone https://github.com/ArzStack/arzstack-hub-skill ~/.claude/skills/arzstack-hub` |
+| **Claude Code** (projeto) | `.claude/skills/` | `git clone https://github.com/ArzStack/arzstack-hub-skill .claude/skills/arzstack-hub` |
+| **Codex / Gemini** (convenção `~/.agents/skills`) | `~/.agents/skills/` | `git clone https://github.com/ArzStack/arzstack-hub-skill ~/.agents/skills/arzstack-hub` |
+| **Outro agente** | pasta de skills do agente | clone esta pasta lá dentro |
+
+> Não tem `git`? Baixe o ZIP (botão **Code → Download ZIP**) e extraia a pasta no
+> diretório de skills correspondente.
+
+Depois de clonar, **reinicie o agente** pra ele carregar a skill.
+
+---
+
+## Usando
+
+Não tem comando especial — depois de instalada, é conversa normal. A skill dispara
+quando você pede algo relacionado ao catálogo, por exemplo:
+
+- "instala a skill de resumo de chamados do nosso hub"
+- "quais MCP servers a minha org tem disponível?"
+- "me configura aqui o que tem no ArzStack pra esse projeto"
+
+Na primeira vez, o agente vai pedir pra você **logar**: crie um token em
+**Perfil → Tokens de CLI** no portal do Hub e rode `npx @arzstack/hub login`.
+
+---
+
+## Atualizando
+
+```bash
+git -C <pasta-da-skill> pull        # ex.: ~/.claude/skills/arzstack-hub
 ```
 
-Ao instalar pelo Hub, o repositório é clonado pra
-`~/.agents/skills/<slug>/` (global) ou `./.agents/skills/<slug>/` (projeto), e o
-agente passa a enxergar o `SKILL.md` na raiz.
-
-## Versionamento
-
-- A branch `main` é a versão publicada.
-- Releases marcam com **tags semver**: `v1.0.0`, `v1.1.0`, …
-- O item no catálogo do Hub guarda a versão como metadado. O `git clone` do CLI
-  hoje pega o HEAD da branch default; pra fixar uma tag específica é só evoluir o
-  install pra `git clone --branch <tag>` (melhoria futura do CLI).
-
-## Como publicar/atualizar
-
-1. Edite o `SKILL.md`.
-2. Commit + tag: `git tag v1.x.0 && git push --tags`.
-3. No Hub (Admin Plataforma), o item global aponta pra este repo (`resource_url`)
-   e é distribuído às orgs.
+Cada release é marcada com tag semver (`v1.0.0`, `v1.1.0`, …).
 
 ## Licença
 
-MIT.
+[MIT](./LICENSE).
