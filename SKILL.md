@@ -57,12 +57,13 @@ more reliable than parsing interactive `browse` output. Call `catalog_counts` /
 **then run the real install with the CLI** (`npx @arzstack/hub install <id>
 --global`). The MCP is read-only: it finds and explains; the CLI installs.
 
-The MCP uses the **same auth** as the CLI (the PAT), so once the user is set up,
-nothing extra is needed. They enable it once in their agent's config — the portal
-shows a ready-to-paste snippet under **Perfil → Tokens de CLI** (equivalent to
-`claude mcp add arzstack-hub --env ARZSTACK_HUB=… --env ARZSTACK_TOKEN=… -- npx -y
-@arzstack/hub mcp`). If you **don't** have these tools, ignore this section and
-just drive the CLI as described below — nothing changes.
+The MCP uses the **same auth** as the CLI (the PAT). If the user already ran
+`arzstack-hub login`, enabling it is just `claude mcp add arzstack-hub -- npx -y
+@arzstack/hub mcp` (the server reads the saved hub + token — no env needed); only
+if they haven't logged in do they pass `--env ARZSTACK_HUB=… --env
+ARZSTACK_TOKEN=…`. The portal shows a ready-to-paste snippet under **Perfil →
+Tokens de CLI**. If you **don't** have these tools, ignore this section and just
+drive the CLI as described below — nothing changes.
 
 ## Step 1 — Make sure the CLI is authenticated
 
