@@ -62,6 +62,18 @@ Na primeira vez, o agente vai pedir pra você **logar**: crie um token em
 
 ---
 
+## Bônus: conectar o agente via MCP
+
+O mesmo pacote também é um **servidor MCP** (`npx @arzstack/hub mcp`). Se você
+conectar seu agente a ele, o agente passa a ter as ferramentas `search_catalog`,
+`catalog_counts` e `get_item` **nativas** — descobre o catálogo direto, sem
+depender desta skill pra navegar (a instalação em si continua pelo CLI). Usa o
+**mesmo token** do login. O portal mostra o trecho pronto pra colar em
+**Perfil → Tokens de CLI**. Skill e MCP se complementam: a skill ensina e instala;
+o MCP dá a busca nativa.
+
+---
+
 ## Atualizando
 
 ```bash

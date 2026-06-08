@@ -39,6 +39,31 @@ across Claude Code, Codex, and Gemini); `--project` installs to `./.agents/skill
 (only this repo). `--yes` skips the confirmation prompt; `--dir <path>` overrides
 the destination.
 
+## If the hub is also connected as an MCP server
+
+The same package doubles as an MCP server (`npx @arzstack/hub mcp`). If the user's
+agent host is configured with it, **you already have these tools natively** — no
+shelling out to discover the catalog:
+
+| MCP tool | what it returns |
+|---|---|
+| `catalog_counts` | how many items exist per type (skill, mcp_server, knowledge, automation) |
+| `search_catalog` | a page of items (filter by `type`, paginate with `cursor`, optional text `query`) |
+| `get_item` | install details for one id — type, source repo, and a `how_to_install` hint |
+
+When these tools are available, **prefer them for discovery** — it's cleaner and
+more reliable than parsing interactive `browse` output. Call `catalog_counts` /
+`search_catalog` to find the item and `get_item` to read its id and install hint,
+**then run the real install with the CLI** (`npx @arzstack/hub install <id>
+--global`). The MCP is read-only: it finds and explains; the CLI installs.
+
+The MCP uses the **same auth** as the CLI (the PAT), so once the user is set up,
+nothing extra is needed. They enable it once in their agent's config — the portal
+shows a ready-to-paste snippet under **Perfil → Tokens de CLI** (equivalent to
+`claude mcp add arzstack-hub --env ARZSTACK_HUB=… --env ARZSTACK_TOKEN=… -- npx -y
+@arzstack/hub mcp`). If you **don't** have these tools, ignore this section and
+just drive the CLI as described below — nothing changes.
+
 ## Step 1 — Make sure the CLI is authenticated
 
 Item ids and the catalog are scoped to the user's organization, so the CLI needs
