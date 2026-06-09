@@ -1,0 +1,24 @@
+name: Release on tag
+
+# Cria um GitHub Release a cada tag `vX.Y.Z` empurrada — assim a doc do Hub
+# (selo shields github/v/release) e a página de Releases sempre refletem a
+# última versão da skill. Notas de release geradas automaticamente.
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cria o release da tag
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
